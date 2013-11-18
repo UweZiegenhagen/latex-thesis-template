@@ -1,0 +1,234 @@
+\chapter{Einleitung}
+
+Dieses Kapitel dient der Beschreibung der Vorlage und soll erklären, warum welche Pakete genutzt werden und wie man auf verschiedenen Betriebssystemen die Dateien dieser Vorlage übersetzt. Erstellt habe ich diese Vorlage unter Windows mit TeXniccenter, für andere Betriebssysteme sind aber nur leichte Anpassungen notwendig (z.B. was die Eingabekodierung angeht). 
+
+Ich empfehle, sich die Erklärungen im ersten Kapitel durchzulesen, um zu vestehen, warum welches \LaTeX-Paket genutzt wird. Viele Probleme mit \LaTeX\xspace resultieren daher, dass einfach alle möglichen Pakete geladen werden, obwohl sie a) nicht benutzt werden und b) man nicht versteht, was die einzelnen Befehle tun. 
+
+Die Vorlage nutzt einige Pakete (nomencl, glossary, makeidx), die die Nutzung von \texttt{makeindex}, einem externen Programm, voraussetzen. Für Windows habe ich eine Powershell-Datei und eine \texttt{.bat} Batch-Datei mitgeliefert, die der Reihe nach alle entsprechenden Aufrufe von \texttt{makeindex} vornehmen. Die entsprechenden Kommandos lassen sich leicht für Linux und Mac OSX anpassen, siehe dazu die Datei \texttt{make.bat}.
+
+\lstinputlisting[caption={Inhalt der \texttt{make.bat} Batch-Datei}]{make.bat}
+
+\section{Dokumentenklasse}
+
+Die Grundlage der Vorlage bietet die \texttt{scrbook} Dokumentenklasse aus der KOMA-Sammlung. Das KOMA Paket bietet gegenüber den normalen \texttt{article}, \texttt{report} und \texttt{book} Klassen eine Vielzahl von Anpassungen in Bezug auf europäische Typografie-Konventionen, Details dazu finden sich in der Dokumentation, siehe \cite{koma}. Die Dokumentation und das darauf aufbauende Buch von Markus Kohm und Jens-Uwe Morawski ist auch sehr sinnvoll, wenn man Anpassungen an dieser Vorlage vornehmen möchte. 
+
+Schauen wir uns den Aufbau von \texttt{Hauptdokument.tex} an:
+
+\lstinputlisting[caption={Aufbau von \texttt{Hauptdokument.tex}}]{Hauptdokument.tex}
+
+Die Datei \texttt{Hauptdokument.tex} ist die Datei, die durch \LaTeX\xspace übersetzt werden muss. Die gesetzten Optionen sind
+
+\begin{compactdesc}
+\item [ngerman] wird vor allem vom \texttt{babel} Paket für die Silbentrennung benötigt. Auch andere Pakete wie \texttt{blindtext} werten diese Option aus.
+\item [12pt] setzt die Basis-Schriftgröße auf 12 Punkt, von dieser Schriftgröße werden die anderen Größen abgeleitet
+\item [oneside] einseitiger Satz, für zweiseitigen Satz einfach dieses Stück löschen
+\end{compactdesc}
+
+Mit \verb|\input{preamble.tex}| wird die Präambel des Dokuments geladen. Sie enthält alle Pakete, die von dieser Vorlage genutzt werden, siehe dazu \prettyref{sec:loadedpackages} sowie alle Definitionen, die diese Pakete benötigen.
+
+Mit  \verb|\input{glossaryentries.tex}| wird die entsprechende Datei geladen, die alle Einträge für das Glossar (Abkürzungsverzeichnis) enthält. Für eine kurze Erläuterung sei auf den entsprechenden Abschnitt \ref{intro:gloss} verwiesen oder auf die Paketdokumentation \todo{talbot zitieren}.
+
+\verb|\biblography{literaturverweise}| legt fest, dass alle Literaturquellen in der Datei \texttt{literaturverweise.bib} zu finden sind.
+
+\verb|\author, \title und \subtitle| legt man den Autor, Titel und Untertitel fest.
+
+Im Anschluss daran beginnt das eigentliche Dokument: Erst wird der Titel gesetzt \todo{ersetzen durch titlepage umgebung}, dann die verschiedenen Verzeichnisse ausgegeben. Sie stehen dabei im Vorspann (nach \verb|\frontmatter|), damit die Seitennummerierung mit römischen Buchstaben erfolgt.
+
+Im Hauptteil des Dokuments (nach \verb|\mainmatter|) wird auf arabische Seitennummerierung umgeschaltet, dann werden die einzelnen Kapitel des Dokuments geladen.
+
+Im Anhang (\verb|\backmatter|) werden dann abschließend Bibliografie, Index, Glossar und Nomenklatur -- das Verzeichnis der genutzten Symbole -- ausgegeben. 
+
+\section{Geladene Pakete}\label{sec:loadedpackages}
+
+In diesem Abschnitt soll kurz erl\"autert werden, was die einzelnen Pakete und Definitionen bezwecken, die in der Pr\"aambel \texttt{preamble.tex} geladen werden. Eine intensive Erkl\"arung kann nicht gegeben werden, dazu sei auf die entsprechende Literatur verwiesen.\todo{Re\-fe\-ren\-zen einf\"ugen!}
+
+\lstinputlisting[caption={Die Datei \texttt{preamble.tex}}]{preamble.tex}
+
+\subsection{inputenc}
+
+Text in \TeX-Dateien ist kodiert, dabei ist UTF8 heute der Standard. Welches Encoding richtig ist, hängt vom Editor und gegebenenfalls von der genutzten Plattform (Windows, Linux, Mac) ab. Ich nutze meistens TeXniccenter unter Windows mit dem \texttt{latin1} Encoding.
+
+\subsection{fontenc}
+
+Das \texttt{fontenc} Paket teilt mit, wie die Zeichen in den genutzten Schriften kodiert sind. Europäische Schriften sind T1-kodiert, russische Schriften T2 kodiert. Für westeuropäische \TeX-Dateien ist daher T1 richtig.
+
+\subsection{babel}
+
+Sorgt für die korrekte Silbentrennung. Die Standardsprache, in diesem Dokument \texttt{ngerman}, wird am besten als Klassenoption gesetzt.
+
+\subsection{todonotes}
+
+Ein nützliches Paket für den Prozess des wissenschaftlichen Schreibens. Mit \verb|\todo{}| wird ein neuer Eintrag erzeugt, der dann in der TODO-Liste auftaucht. 
+
+Mit \verb|\missingfigure{Bild einfügen}| erzeugt man einen Eintrag für ein fehlendes Bild.
+
+Für mehr Informationen siehe \cite{todonotes}.
+
+\subsection{xcolor}
+
+Das \texttt{xcolor} Paket definiert alle notwendigen Befehle, um in \LaTeX{} Farben nutzen zu können.
+
+\begin{lstlisting}
+\textcolor{red}{Roter Text}
+\end{lstlisting}
+
+\textcolor{red}{Roter Text}
+
+\subsection{graphicx}
+
+Das \texttt{graphicx} stellt vor allem den  \verb|\includegraphics| Befehl, um Bilder einzubinden. Für Beispiele siehe \prettyref{sec:figures}. 
+
+\subsection{booktabs}
+
+Sorgt für schönere Tabellen, indem es verschiedene Linien bereitstellt, die per \verb|\toprule|, \verb|\midrule|, \verb|\bottomrule| nutzbar sind. Für ein Beispiel siehe \prettyref{sec:booktabs}, für mehr Informationen \cite{booktabs}
+
+\subsection{xspace}
+
+Hilft bei der Definition von Befehlen, nach denen mal ein Leerzeichen, mal keins zu setzen ist. Schreibt man nur \verb|\LaTeX ist toll|, so wird das Leerzeichen hinter \LaTeX{} geschluckt. Steht \LaTeX{} hingegen vor einem Satzzeichen oder Komma, so darf hinter \LaTeX{} kein Leerzeichen stehen. Insbesondere bei der Definition von neuen Befehlen kann \verb|\xspace| daher ganz einfach genutzt werden, hier ein Beispiel:
+
+\begin{lstlisting}
+\documentclass{article}
+\usepackage[]{xspace}
+\newcommand{\dna}{Deoxyribonucleic acid}
+\newcommand{\dns}{Desoxyribonukleins\"aure\xspace}
+
+\begin{document}
+
+\dna ist die englische Bezeichnung.
+
+\dns ist die deutsche Bezeichnung.
+
+\end{document}
+\end{lstlisting}
+
+\subsection{subfig}
+
+Oft ist es notwendig, mehrere Grafiken oder Tabellen direkt neben- oder untereinander zu positionieren. Das \texttt{subfig} Paket stellt die notwendigen Befehle bereit, Beispiele finden sich in \prettyref{sec:figures} auf Seite \pageref{sec:figures} sowie in der Dokumentation (\cite{subfig}).
+
+\subsection{wrapfig}
+
+Das \texttt{wrapfig} Paket sorgt dafür, dass Bilder vom Text umflossen werden können, ein Beispiel findet sich in \prettyref{sec:figures}.
+
+Für mehr Informationen siehe \cite{wrapfig}.
+
+
+\subsection{paralist}
+
+\texttt{paralist} vereinfacht die Erstellung von benutzerdefinierten Listen-Umgebungen und stellt kompakte Listenumgebungen bereit, einige Beispiele stehen in \prettyref{sec:itemize}.
+
+Für mehr Informationen siehe \cite{paralist}.
+
+\subsection{svn-multi}
+
+Subversion ist ein freies Versionsverwaltungssystem, die Dateien liegen dabei in einem zentralen Archiv. Für mehr Informationen, wie Subversion installiert und genutzt wird, siehe \cite{ziegenhagen:svn}. Das \texttt{svn-multi} Paket wertet die Statusinformationen aus, die Subversion in einer Datei hinterlegen kann. 
+
+Für mehr Informationen siehe \cite{svnmulti}.
+
+
+\subsection{prettyref}
+
+Der Befehl \verb|\prettyref{}| aus dem \texttt{prettyref} zerlegt Label-Einträge, wenn diese in einem bestimmten Format definiert wurden. So definiert \verb|\newrefformat{sec}{Abschnitt \ref{#1}}|, dass Labels der Form \verb|sec:Label| nach \enquote{Abschnitt \enquote{label}} expandiert werden. 
+
+Für mehr Informationen siehe \cite{prettyref}.
+
+\subsection{longtable}
+
+\texttt{longtable} definiert Befehle, um mehrseitige Tabellen zu setzen. Ein Code-Bespiel steht in \prettyref{sec:longtable}.
+
+Für mehr Informationen siehe \cite{longtable}.
+
+
+\subsection{pdfpages}
+
+\texttt{pdfpages} erlaubt es, PDF-Dateien ganzseitig in das \LaTeX-Dokument einzufügen. 
+
+Für mehr Informationen siehe \cite{pdfpages}.
+
+
+\subsection{setspace}
+
+Das \texttt{setspace} Paket definiert drei Befehle: \verb|\singlespacing|, \verb|\onehalfspacing| und \verb|\doublespacing|, die den Zeilenabstand im Dokument steuern. Der Zeilenabstand in den Fußnoten bleibt davon unberücksichtigt, man muss keine Experimente mit \verb|\baselineskip| und ähnlichen Konstrukten vornehmen.
+
+\subsection{microtype}
+
+Das \texttt{microtype} Paket ändert u.\,a. den Satz so, dass Satzzeichen und Kommata ein minimales Stück über den Rand ragen. Dadurch wird der Blocksatz noch gleichmäßiger.
+
+\subsection{biblatex}
+
+Ein Paket, das \texttt{bibtex} für die Erstellung von Bibliografien ablöst.
+
+\subsection{csquotes}
+
+\texttt{csquotes} stellt den \verb|\enquote{}| Befehl bereit, mit dem sich auch verschachtelte Anführungszeichen sauber setzen lassen. 
+
+Für mehr Informationen siehe \cite{csquotes}.
+
+
+\subsection{listings}
+
+Mit dem \texttt{listings} Paket lassen sich Quellcodes aus verschiedensten Programmiersprachen elegant in \LaTeX{} einbinden. Für Beispiele siehe \prettyref{sec:listings}.
+
+Für mehr Informationen siehe \cite{listings}.
+
+
+\subsection{palatino}
+
+\texttt{palatino} setzt die Palatino Schrift als Hauptschriftart. Die nachfolgenden auskommentierten \verb|\usepackage| Befehle laden andere Schriften, die unter Mik\TeX{} verfügbar sind.
+
+\subsection{setkomafont} 
+
+\verb|\setkomafont| setzt für die einzelnen Gliederungsebenen Schriftgröße und Schriftart
+
+\subsection{nomencl}
+
+\texttt{nomencl} definiert die notwendigen Umgebungen für eine Nomenklatur, das Verzeichnis aller genutzten Symbole. Ebenso wie \texttt{makeidx} und \texttt{glossaries} braucht es \texttt{makeindex} zum Erzeugen der Nomenklatur. Siehe Abschnitt \prettyref{sec:nomencl} für ein Beispiel.
+
+\subsection{makeidx}
+
+Zur Erstellung eines Indexes.
+
+\subsection{glossaries}
+
+Zur Erstellung eines Glossars, für mehr Informationen zur Thematik siehe \cite{glossaries}. Eine gute Anleitung, wie man mit dem Paket optimal arbeitet, findet man auch in \cite{tut:glossaries}.
+
+
+\subsection{lineno}
+
+Setzt über den Befehl \verb|\linenumbers| Zeilenummern, die besonders in der Korrekturphase der Arbeit sehr hilfreich sind.
+
+\subsection{titlesec}
+
+Definiert das Aussehen der verschiedenen Abschnittsebenen um und erlaubt es, neue Ebenen zu definieren.
+
+Für mehr Informationen siehe \cite{titlesec}.
+
+\subsection{footmisc}
+
+Für die Formatierung der Fußnoten.
+
+Für mehr Informationen siehe \cite{footmisc}.
+
+\subsection{url}
+
+Stellt den \verb|\url{}| Befehl bereit, um auch lange URLs sauber zu trennen.
+
+\subsection{hyperref}
+
+\texttt{hyperref} definiert nützliche Befehle für Hyperlinks innerhalb und außerhalb des Dokuments. Das Paket stellt den \verb|\hypersetup| Befehl bereit, um die PDF-Eigenschaften für Autor, Titel und Stichworte und die Farben der verschiedenen Links zu setzen. 
+
+Für mehr Informationen siehe \cite{hyperref}.
+
+\subsection{definecolor}
+
+Über die \verb|\definecolor| Befehle aus dem \texttt{xcolor} Paket werden verschiedene Farben definiert, die durch das \texttt{Listings} Paket über seinen \verb|\lstset| Befehl genutzt werden.
+
+\subsection{scrpage2}
+
+Mit \texttt{scrpage2} können Fuß- und Kopfzeile angepasst werden. Für mehr Information zu der Syntax der genutzten Befehle siehe die Anleitung (\cite{koma}) oder das Buch (\cite{komabuch}).
+
+\section{Index} 
+
+Indexeinträge werden über \verb|\index{Hallo}| gesetzt, für mehr Informationen zum Thema Index in \LaTeX\xspace siehe die entsprechende Literatur. \todo{\LaTeX-Bücher in der Literatur auflisten}
+
+\section{Glossar}\label{intro:gloss}
+

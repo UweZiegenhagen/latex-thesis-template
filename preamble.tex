@@ -1,0 +1,119 @@
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{todonotes}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{xspace}
+\usepackage{subfig}
+\usepackage{wrapfig}
+\usepackage{paralist}
+\usepackage{prettyref}
+
+
+\usepackage[a4paper,left=2cm,right=3cm,top=2cm,bottom=3cm]{geometry}
+
+
+% Nur wenn ein Subversion genutzt wird
+\usepackage[]{svn-multi}
+
+\newrefformat{eq}{\textup{(\ref{#1})}}
+\newrefformat{lem}{Lemma \ref{#1}}
+\newrefformat{thm}{Theorem \ref{#1}}
+\newrefformat{cha}{Kapitel \ref{#1}}
+\newrefformat{sec}{Abschnitt \ref{#1}}
+\newrefformat{tab}{Tabelle \ref{#1}}
+\newrefformat{fig}{Abbildung \ref{#1}}
+
+\usepackage[]{longtable}
+\usepackage[]{pdfpages}
+\usepackage[]{setspace}
+\onehalfspacing
+
+\usepackage[]{microtype}
+\usepackage[style=authoryear,hyperref=true,natbib=true,sorting=nyt,block=space]{biblatex}
+\usepackage[babel,german=quotes]{csquotes}
+\usepackage[]{listings}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1.2em}
+
+%\renewcommand{\familydefault}{\sfdefault}
+%\usepackage[scaled=0.9]{helvet}
+
+\usepackage{palatino}
+%\usepackage{charter}
+%\usepackage{beraserif}
+%\usepackage{newcent}
+%\usepackage{fourier}
+%\usepackage{chancery}
+	
+\setkomafont{title}{\rmfamily} 
+\setkomafont{chapter}{\huge\rmfamily}
+\setkomafont{section}{\LARGE\rmfamily} 	
+\setkomafont{subsection}{\Large\rmfamily} 	
+\setkomafont{subsubsection}{\large\rmfamily} 	
+
+% http://my.opera.com/timomeinen/blog/show.dml/68644
+\usepackage[german]{nomencl} 
+\makenomenclature 
+\usepackage{makeidx}
+\makeindex 
+\usepackage{glossaries}
+\makeglossaries
+\usepackage{lineno}
+\linenumbers
+
+\usepackage[noindentafter]{titlesec}
+\usepackage[flushmargin]{footmisc}
+
+\usepackage[]{url}
+\urlstyle{same}
+
+\usepackage{hyperref}
+\hypersetup{%
+  colorlinks=true,   % aktiviert farbige Referenzen
+  linkcolor = blue,  % Linkfarbe blau
+  citecolor = blue,  % cite-Farbe blau
+  urlcolor = blue,  % cite-Farbe blau
+  pdfpagemode=UseNone,  % PDF-Viewer startet ohne Inhaltsverzeichnis et.al.
+  pdfstartview=FitH} % PDF-Viewer benutzt beim Start bestimmte Seitenbreite
+
+\definecolor{hellgelb}{rgb}{1,1,0.8}
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{1,0,0}
+\definecolor{colString}{rgb}{0,0.5,0}
+
+\lstset{%
+    float=hbp,%
+		language=[LaTeX]TeX,
+    basicstyle=\ttfamily\small, %
+    identifierstyle=\color{colIdentifier}, %
+    keywordstyle=\color{colKeys}, %
+    stringstyle=\color{colString}, %
+    commentstyle=\color{colComments}, %
+    columns=flexible, %
+    tabsize=2, %
+    frame=single, %
+    extendedchars=true, %
+    showspaces=false, %
+    showstringspaces=false, %
+    numbers=left, %
+    numberstyle=\tiny, %
+    breaklines=true, %
+    backgroundcolor=\color{hellgelb}, %
+    breakautoindent=true, %
+    captionpos=b%
+}
+
+\usepackage[automark]{scrpage2}
+\pagestyle{scrheadings}
+\clearscrheadfoot
+
+\setheadsepline[\textwidth]{1pt}{}
+\ohead{\headmark}
+\ofoot[\pagemark]{\pagemark}
+\cfoot{}
+\chead{}

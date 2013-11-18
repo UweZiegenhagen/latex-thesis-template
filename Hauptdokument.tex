@@ -1,0 +1,40 @@
+\documentclass[ngerman,12pt,oneside]{scrbook}
+
+\input{preamble}
+\input{glossaryentries}
+
+\author{Max Mustermann}
+\title{Titel der Arbeit}
+\subtitle{Untertitel der Arbeit}
+
+% nur wenn ein Subversion eingesetzt wird
+\svnid{$Id: Hauptdokument.tex 24 2013-11-18 06:55:28Z uwe $} 
+\date{\svnfileday.\svnfilemonth.\svnfileyear}
+\subtitle{SVN-Version \svnrev}  
+
+\bibliography{literaturverweise}
+
+\begin{document}
+\maketitle
+
+\frontmatter
+\tableofcontents
+\listoffigures
+\listoftables
+\listoftodos
+\lstlistoflistings 
+
+\mainmatter
+\include{chapter01}
+\include{chapter02}
+
+\backmatter
+\nocite{*}
+
+
+\printbibliography 
+\printnomenclature
+\printindex
+\printglossaries
+
+\end{document}
