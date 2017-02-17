@@ -43,6 +43,7 @@
 %\usepackage[scaled=0.9]{helvet}
 
 \usepackage{palatino}
+%\usepackage{kpfonts}
 %\usepackage{charter}
 %\usepackage{beraserif}
 %\usepackage{newcent}
@@ -86,9 +87,9 @@
 \definecolor{colComments}{rgb}{1,0,0}
 \definecolor{colString}{rgb}{0,0.5,0}
 
-\lstset{%
+\lstset{inputencoding=utf8,%
     float=hbp,%
-		language=[LaTeX]TeX,
+    language=[LaTeX]TeX,
     basicstyle=\ttfamily\small, %
     identifierstyle=\color{colIdentifier}, %
     keywordstyle=\color{colKeys}, %
@@ -105,8 +106,12 @@
     breaklines=true, %
     backgroundcolor=\color{hellgelb}, %
     breakautoindent=true, %
-    captionpos=b%
+    captionpos=b,%
+    literate={ä}{{\"a}}1{ö}{{\"o}}1{ü}{{\"u}}1{ß}{{\ss}}1
 }
+
+
+
 
 \usepackage[automark]{scrpage2}
 \pagestyle{scrheadings}

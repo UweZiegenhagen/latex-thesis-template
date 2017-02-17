@@ -19,3 +19,4 @@ del *.out
 del *.tdo
 del *.toc
 del *.xml
+del *.synctex
